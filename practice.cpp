@@ -2,9 +2,14 @@
 using namespace std;
 
 int main() {
-    string x = "hello world also";
-    cout << "hello world!" << endl;
-    cout << x;
+    int x = 0;
+    cout << "Type a number: ";
+    cin >> x;
+    if (x > 10){
+        cout << "This is a good number!";
+    } 
+    else{
+        cout << "This is not a good number!";
+    }
     return 0;
-
 }
