@@ -2,13 +2,12 @@
 #include <string>
 using namespace std;
 
+
+
 int main() {
-    float mean = 0; //initialize calculation variables
-    float median = 0;
-    float mode = 0;
+    float mean, median, mode, sum; //initialize calculation variables
     float input = 0; //declare input variable
-    int a, b, c, temp; //declare variables for sorting
-    int arr [10]; //declare array
+    float arr [10]; //declare array
 
     for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
         arr[i] = -1; //initialize array
@@ -28,31 +27,23 @@ int main() {
             cout << "Terminated";
             break;
             }
-    }
+    } //get values input into array
 
     for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
-        mean += arr[i];
+        sum += arr[i];
     } //get sum of array
-    mean = mean / 10; //find mean
+    mean = sum / 10; //find mean
 
     cout << mean << endl;
 
-    //sorting - ASCENDING ORDER
-	for (b = 0; b < a; b++) {		
-		for (c = b + 1; c < a; c++) {
-			if(arr[b] > arr[c]) {
-				temp = arr[b];
-				arr[b] = arr[c];
-				arr[c] = temp;
-			}
-		}
-	}
+    sort(arr, arr + 9); //sort array
+    median = ((arr[4] + arr[5]) / 2); //calculate median
 
-    //print sorted array elements
-	cout << "Sorted (Ascending Order) Array elements:" << endl;
-	for ( b = 0; b < a; b++)
-		cout << arr[b] << "\t";
-	cout<<endl;
-
+    cout << median << endl;
+/*    
+for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
+        cout << arr[i] << " ";
+    } //print array
+*/
 
 }
