@@ -2,7 +2,8 @@
 #include <iomanip>
 using namespace std;
 
-float mean, median, mode, sum; //declare calculation variables
+float median, mode, sum; //declare calculation variables
+int mean; //declare mean, floored
 float input = 0; //declare input variable
 float arr [10]; //declare array
 
@@ -34,7 +35,7 @@ int main() {
     for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
         sum += arr[i];
     } //get sum of array
-    mean = sum / 10; //find mean
+    mean = sum / 10; //find mean, floored it
 
     median = ((arr[4] + arr[5]) / 2); //calculate median
 
@@ -55,7 +56,7 @@ int main() {
 
     //print the results
     cout << endl;
-    cout << setw(4) << "Mean" << setw(9) << "Median" << setw(7) << "Mode" << endl;
-    cout << setw(4) << mean << setw(9) << median << setw(7) << mode << endl;
+    cout << setw(5) << "Mean(f)" << setw(9) << "Median" << setw(7) << "Mode" << endl;
+    cout << setw(5) << mean << setw(9) << median << setw(7) << mode << endl << endl;
 
 }
