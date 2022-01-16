@@ -1,13 +1,12 @@
 #include <iostream>
-#include <string>
+#include <iomanip>
 using namespace std;
 
-
+float mean, median, mode, sum; //declare calculation variables
+float input = 0; //declare input variable
+float arr [10]; //declare array
 
 int main() {
-    float mean, median, mode, sum; //initialize calculation variables
-    float input = 0; //declare input variable
-    float arr [10]; //declare array
 
     for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
         arr[i] = -1; //initialize array
@@ -25,25 +24,38 @@ int main() {
             }
         } else {
             cout << "Terminated";
-            break;
+            exit(0);
+            return 0;
             }
     } //get values input into array
+
+    sort(arr, arr + 9); //sort array
 
     for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
         sum += arr[i];
     } //get sum of array
     mean = sum / 10; //find mean
 
-    cout << mean << endl;
-
-    sort(arr, arr + 9); //sort array
     median = ((arr[4] + arr[5]) / 2); //calculate median
 
-    cout << median << endl;
-/*    
-for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
-        cout << arr[i] << " ";
-    } //print array
-*/
+    float a, count = arr[0], countMode; //declare temp variables for mode counting
+
+    for (int i=1; i < sizeof(arr)/sizeof(arr[0]); i++) {
+        if (arr[i] == a) { // count occurrences of the current number
+            ++count;
+        } else { // now this is a different number
+                if (count > countMode) {
+                    countMode = count; // mode is the biggest ocurrences
+                    mode = a;
+                }
+            count = 1; // reset count for the new number
+            a = arr[i];
+        }
+    }   
+
+    //print the results
+    cout << endl;
+    cout << setw(4) << "Mean" << setw(9) << "Median" << setw(7) << "Mode" << endl;
+    cout << setw(4) << mean << setw(9) << median << setw(7) << mode << endl;
 
 }
