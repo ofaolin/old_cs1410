@@ -60,3 +60,9 @@ int main() {
     cout << setw(5) << mean << setw(9) << median << setw(7) << mode << endl << endl;
 
 }
+
+//changes to make:
+//input of -1 should terminate the input but not terminate the program
+//calculations should still occur on the numbers input before negative 1
+//mode calculation does not work if multiple modes are input
+//look into coding a custom sort algorith
