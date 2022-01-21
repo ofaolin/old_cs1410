@@ -24,13 +24,12 @@ int main() {
                 cout << "Please enter a valid number; Must be between 0 and 100." << endl;
             }
         } else {
-            cout << "Terminated";
-            exit(0);
-            return 0;
+            cout << "Input terminated, continiuing with input numbers.";
+            break;
             }
     } //get values input into array
 
-    sort(arr, arr + 9); //sort array
+    sort(arr, arr + 9); //sort array, I cheated.
 
     for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
         sum += arr[i];
@@ -44,9 +43,9 @@ int main() {
     for (int i=1; i < sizeof(arr)/sizeof(arr[0]); i++) {
         if (arr[i] == a) { // count occurrences of the current number
             ++count;
-        } else { // now this is a different number
+        } else {
                 if (count > countMode) {
-                    countMode = count; // mode is the biggest ocurrences
+                    countMode = count; // mode is the biggest ocurrence
                     mode = a;
                 }
             count = 1; // reset count for the new number
@@ -60,9 +59,3 @@ int main() {
     cout << setw(5) << mean << setw(9) << median << setw(7) << mode << endl << endl;
 
 }
-
-//changes to make:
-//input of -1 should terminate the input but not terminate the program
-//calculations should still occur on the numbers input before negative 1
-//mode calculation does not work if multiple modes are input
-//look into coding a custom sort algorith
