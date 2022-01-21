@@ -30,14 +30,11 @@ int main() {
         divList.clear();
         varChecker = inputList[i];
         for (int i = varChecker-1; i >= 1; i--) {
-            if (varChecker % i == 0 && i != 0) {
-                divList.push_back(i);
-            } //check if the iterator is a divisor of the varChecker and input into divlist if it is
-        }// iterate from varchecker value to 1 and check each
-
-        for (int i = 0; i < divList.size(); i++) {
-            sum += divList[i];
-        } //get sum of vector
+            if (varChecker % i == 0 && i != 0) //check if the iterator is a divisor of the varChecker and input into divlist if it is
+                divList.push_back(i); 
+        }
+        for (int i = 0; i < divList.size(); i++) //get sum of vector
+        sum += divList[i];
 
         if (sum == varChecker)
         cout << varChecker << " is a perfect number." << endl;
