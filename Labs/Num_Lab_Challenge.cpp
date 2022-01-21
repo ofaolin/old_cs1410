@@ -8,7 +8,6 @@ float input = 0; //declare input variable
 vector <int> inputList; //declare vector for inputs
 int varChecker = 1; //declare temp check variable
 vector <int> divList; //declare a vector for the divisors
-string printer; //declare print variable, for easier printing
 
 
 int main() {
