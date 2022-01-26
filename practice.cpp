@@ -2,6 +2,11 @@
 using namespace std;
 
 int main() {
-    cout << 5/2;
-    return 0;
+   int sum = 1;
+while ( sum <= 10 ){
+   std::cout << "Sum: " << sum << " ";
+    sum++;
+}
+
+ return 0;
 }

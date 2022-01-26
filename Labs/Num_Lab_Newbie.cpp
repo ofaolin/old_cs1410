@@ -1,5 +1,7 @@
 #include <iostream>
 #include <iomanip>
+#include <vector>
+
 using namespace std;
 
 float median, mode, sum; //declare calculation variables
@@ -29,7 +31,7 @@ int main() {
             }
     } //get values input into array
 
-    sort(arr, arr + 9); //sort array, I cheated.
+    sort(arr, arr + 9); //sort array
 
     for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
         sum += arr[i];
@@ -38,9 +40,9 @@ int main() {
 
     median = ((arr[4] + arr[5]) / 2); //calculate median
 
-    float a, count = arr[0], countMode; //declare temp variables for mode counting
+    float a = -1, count = arr[0], countMode; //declare temp variables for mode counting
 
-    for (int i=1; i < sizeof(arr)/sizeof(arr[0]); i++) {
+    for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {
         if (arr[i] == a) { // count occurrences of the current number
             ++count;
         } else {
