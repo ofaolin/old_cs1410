@@ -1,6 +1,16 @@
 #include <iostream>
 using namespace std;
 
+struct Date {
+    int Day;
+    int Month;
+    int Year;
+    string dayOfWeek;
+    bool leapYear;
+};
+
+bool leapChecker;
+
 enum monthName {Null, January, February, March, April, May, June, July, August, September, October, November, December};
 
 string Months[13] = {"Null","January","February","March","April","May","June","July","August","September","October","November","December"};
@@ -11,22 +21,12 @@ int getWeekDay(int y, int m, int d) {
   return (y + y/4 - y/100 + y/400 + t[m-1] + d) % 7;
 }
 
-class Date {
-    private:
-    int Day;
-    int Month;
-    int Year;
-    string dayOfWeek;
-    bool leapYear;
-
-    public:
-    bool setYear(int year) {
+bool validateYear(int year) {
         if (year <= 9999 && year >= 1700) {
-            Year = year;
             if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
-                leapYear = true;
+                leapChecker = true;
             else 
-                leapYear = false;
+                leapChecker = false;
             return true;
         } else {
             cout << "Please enter a valid year." << endl;
@@ -34,85 +34,68 @@ class Date {
         }
     }
 
-    int getYear() {
-        return Year;
+bool validateMonth(int month) {
+    if (month >= 0 && month <= 12) {
+        return true;
     }
+    else {
+        cout << "Please enter a valid month." << endl;
+        return false;
+    }
+}
 
-    bool setMonth(int month) {
-        if (month >= 0 && month <= 12) {
-            Month = month;
+bool validateDay(int day, int month, int year, bool leap) {
+    if (month == January || month == March || month == May || month == July || month == August || month == October || month == December && day <= 31) {
+        return true;
+    }
+    else if (month == February) {
+        if (day <= 28) {
+            return true;
+        }
+        else if (leap == true && day <= 29) {
             return true;
         }
         else {
-            cout << "Please enter a valid month." << endl;
+            cout << "Please enter a valid day." << endl;
             return false;
         }
+    } 
+    else if ((month == April || month == June || month == September || month == November) && (day <= 30)) {
+        return true;
     }
-
-    int getMonth() {
-        return Month;
+    else {
+        cout << "Please enter a valid day." << endl;
+        return false;
     }
-
-    bool setDay(int day) {
-            if (Month == January || Month == March || Month == May || Month == July || Month == August || Month == October || Month == December && day <= 31) {
-                Day = day;
-                return true;
-            }
-            else if (Month == February) {
-                if (day <= 28) {
-                    Day = day;
-                    return true;
-                }
-                else if (leapYear == true && day <= 29) {
-                    Day = day;
-                    return true;
-                }
-                else {
-                    cout << "Please enter a valid day." << endl;
-                    return false;
-                }
-            } 
-            else if ((Month == April || Month == June || Month == September || Month == November) && (day <= 30)) {
-                Day = day;
-                return true;
-            }
-            else {
-                cout << "Please enter a valid day." << endl;
-                return false;
-            }
-    }
+}
     
-    int getDay() {
-        return Day;
+string getWeekDayWord(int weekday) {
+    switch(weekday){
+    case 0: return "Sunday";
+    break;
+    case 1: return "Monday";
+    break;
+    case 2: return "Tuesday";
+    break;
+    case 3: return "Wednesday";
+    break;
+    case 4: return "Thursday";
+    break;
+    case 5: return "Friday";
+    break;
+    case 6: return "Saturday";
+    break;
+    default: return "Null";
+    break;
     }
+}
 
-    void setWeekDay(int weekday) {
-        switch(weekday){
-        case 0: dayOfWeek = "Sunday";
-        break;
-        case 1: dayOfWeek = "Monday";
-        break;
-        case 2: dayOfWeek = "Tuesday";
-        break;
-        case 3: dayOfWeek = "Wednesday";
-        break;
-        case 4: dayOfWeek = "Thursday";
-        break;
-        case 5: dayOfWeek = "Friday";
-        break;
-        case 6: dayOfWeek = "Saturday";
-        break;
-    }
-    }
-
-    string getWeekDay() {
-        return dayOfWeek;
-    }
-
-    void printDate (){
-        cout << "The date entered is: " << dayOfWeek << ", " << Months[Month] << " " << Day << ", " << Year << endl;
-    }
-};
+void printDate (string weekday, int day, int month, int year, bool leapYear){
+    if (leapYear == true)
+        cout << "The date entered is: " << weekday << ", " << Months[month] << " " << day << ", " << year << ", a Leap Year!" << endl;
+    else
+        cout << "The date entered is: " << weekday << ", " << Months[month] << " " << day << ", " << year << endl;
+}
 
 int main() {
     bool inputValidity = false;
@@ -122,7 +105,10 @@ int main() {
     while (inputValidity != true) {
         cout << "Please enter year (yyyy): ";
         cin >> input;
-        inputValidity = date.setYear(input);
+        inputValidity = validateYear(input);
+        if (inputValidity == true)
+            date.Year = input;
+            date.leapYear = leapChecker;
     }
 
     inputValidity = false;
@@ -130,7 +116,9 @@ int main() {
     while (inputValidity != true) {
         cout << "Please enter month (mm): ";
         cin >> input;
-        inputValidity = date.setMonth(input);
+        inputValidity = validateMonth(input);
+        if (inputValidity == true)
+            date.Month = input;
     }
 
     inputValidity = false;
@@ -138,10 +126,12 @@ int main() {
     while (inputValidity != true) {
         cout << "Please enter day (dd): ";
         cin >> input;
-        inputValidity = date.setDay(input);
+        inputValidity = validateDay(input, date.Month, date.Year, leapChecker);
+        if (inputValidity == true)
+            date.Day = input;
     }
 
-    date.setWeekDay(getWeekDay(date.getYear(), date.getMonth(), date.getDay()));
+    date.dayOfWeek = getWeekDayWord(getWeekDay(date.Year, date.Month, date.Day));
 
-    date.printDate();
+    printDate(date.dayOfWeek, date.Day, date.Month, date.Year, date.leapYear);
 }
